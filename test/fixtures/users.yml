@@ -1,1 +1,4 @@
-# このファイルは８章で使うため残しておきます
+michael:
+  name: Michael Example
+  email: michael@example.com
+  password_digest: <%= User.digest('password') %>

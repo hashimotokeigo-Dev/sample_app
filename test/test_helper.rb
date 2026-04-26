@@ -9,6 +9,9 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
   # test/fixtures/*.ymlにあるすべてのfixtureをセットアップする
   fixtures :all
+  #テストユーザーがログイン中の場合にtrueを返す
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
   include ApplicationHelper
-  # （すべてのテストで使うその他のヘルパーメソッドは省略）
 end
