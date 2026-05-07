@@ -1,0 +1,16 @@
+# .rubocop.yml
+plugins:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
