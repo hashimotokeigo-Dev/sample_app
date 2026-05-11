@@ -10,14 +10,8 @@ end
 
 class UsersSignupTest < UsersSignup
   test "invalid signup information" do
-<<<<<<< HEAD
     assert_no_difference "User.count" do
       post users_path, params: { user: { name: "",
-=======
-    get signup_path
-    assert_no_difference "User.count" do
-      post users_path, params: { user: { name:  "",
->>>>>>> origin/main
                                          email: "user@invalid",
                                          password: "foo",
                                          password_confirmation: "bar" } }
@@ -28,15 +22,9 @@ class UsersSignupTest < UsersSignup
     assert_select "div.field_with_errors"
   end
 
-<<<<<<< HEAD
   test "valid signup information with account activation" do
     assert_difference "User.count", 1 do
       post users_path, params: { user: { name: "Example User",
-=======
-  test "valid signup information" do
-    assert_difference "User.count", 1 do
-      post users_path, params: { user: { name:  "Example User",
->>>>>>> origin/main
                                          email: "user@example.com",
                                          password: "password",
                                          password_confirmation: "password" } }
@@ -79,10 +67,7 @@ class AccountActivationTest < UsersSignup
     assert @user.reload.activated?
     follow_redirect!
     assert_template "users/show"
-<<<<<<< HEAD
-=======
     assert_not flash.empty?
->>>>>>> origin/main
     assert is_logged_in?
   end
 end
