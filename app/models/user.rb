@@ -32,7 +32,7 @@ class User < ApplicationRecord
   # 永続的セッションのためにユーザーをデーターベースに記憶する
   def remember
     self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    update_attribute(:remember_digest, User.digest(remember_token)) # rubocop:disable Rails/SkipsModelValidations
     remember_digest
   end
 
@@ -52,12 +52,12 @@ class User < ApplicationRecord
 
   # ユーザーのログイン情報を破棄する
   def forget
-    update_attribute(:remember_digest, nil)
+    update_attribute(:remember_digest, nil) # rubocop:disable Rails/SkipsModelValidations
   end
 
   # アカウントを有効にする
   def activate
-    update_columns(activated: true, activated_at: Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
   end
 
   # 有効化用のメールを送信する

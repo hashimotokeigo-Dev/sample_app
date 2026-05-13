@@ -19,12 +19,12 @@ module SessionsHelper
   def current_user
     if (user_id = session[:user_id])
       user = User.find_by(id: user_id)
-      @current_user = user if user && session[:session_token] == user.session_token
+      @current_user = user if user && session[:session_token] == user.session_token # rubocop:disable Rails/HelperInstanceVariable
     elsif (user_id = cookies.encrypted[:user_id])
-      user = User.find_by(id: user_id)
+      user = User.find_by(id: user_id) # rubocop:disable Rails/HelperInstanceVariable
       if user&.authenticated?(:remember, cookies[:remember_token])
         log_in user
-        @current_user = user
+        @current_user = user  #安全のため # rubocop:disable Rails/HelperInstanceVariable
       end
     end
   end

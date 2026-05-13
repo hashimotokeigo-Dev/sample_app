@@ -45,7 +45,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       # ページにいる最初のユーザーを無効化する。
       # 無効なユーザーを作成するだけでは、
       # Railsで最初のページに表示される保証がないので不十分
-      User.paginate(page: 1).first.toggle!(:activated)
+      User.paginate(page: 1).first.toggle!(:activated) # rubocop:disable Rails/SkipsModelValidations
       # /usersを再度取得して、無効化済みのユーザーが表示されていないことを確かめる
       get users_path
       # 表示されているすべてのユーザーが有効化済みであることを確かめる

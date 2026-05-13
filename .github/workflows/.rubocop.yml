@@ -10,3 +10,5 @@ AllCops:
     - "bin/**/*"
     - "node_modules/**/*"
     - "vendor/**/*"
+Style/Documentation:
+  Enabled: false

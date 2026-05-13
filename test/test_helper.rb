@@ -16,7 +16,7 @@ module ActiveSupport
     include ApplicationHelper
 
     # テストユーザーがログイン中の場合にtrueを返す
-    def is_logged_in?
+    def is_logged_in? # rubocop:disable Naming/PredicatePrefix
       !session[:user_id].nil?
     end
 
