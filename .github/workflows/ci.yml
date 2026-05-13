@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  rubocop:
+    name: RuboCop
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Rubyをセットアップ
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.10"
+          bundler-cache: true
+
+      - name: RuboCopを実行
+        run: bundle exec rubocop
+
+  minitest:
+    name: Minitest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Rubyをセットアップ
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.10"
+          bundler-cache: true
+
+      - name: データベースを作成
+        run: bundle exec rails db:create db:migrate
+        env:
+          RAILS_ENV: test
+
+      - name: Minitestを実行
+        run: bundle exec rails test
+        env:
+          RAILS_ENV: test
