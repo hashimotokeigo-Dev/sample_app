@@ -21,10 +21,10 @@ module SessionsHelper
       user = User.find_by(id: user_id)
       @current_user = user if user && session[:session_token] == user.session_token # rubocop:disable Rails/HelperInstanceVariable
     elsif (user_id = cookies.encrypted[:user_id])
-      user = User.find_by(id: user_id) # rubocop:disable Rails/HelperInstanceVariable
+      user = User.find_by(id: user_id)
       if user&.authenticated?(:remember, cookies[:remember_token])
         log_in user
-        @current_user = user  #安全のため # rubocop:disable Rails/HelperInstanceVariable
+        @current_user = user  # rubocop:disable Rails/HelperInstanceVariable
       end
     end
   end
@@ -50,7 +50,7 @@ module SessionsHelper
   def log_out
     forget(current_user)
     reset_session
-    @current_user = nil # 安全のため
+    @current_user = nil # rubocop:disable Rails/HelperInstanceVariable
   end
 
   # アクセスしようとしたURLを保存する
