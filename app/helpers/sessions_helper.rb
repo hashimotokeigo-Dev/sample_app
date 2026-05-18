@@ -24,7 +24,7 @@ module SessionsHelper
       user = User.find_by(id: user_id)
       if user&.authenticated?(:remember, cookies[:remember_token])
         log_in user
-        @current_user = user  # rubocop:disable Rails/HelperInstanceVariable
+        @current_user = user # rubocop:disable Rails/HelperInstanceVariable
       end
     end
   end
