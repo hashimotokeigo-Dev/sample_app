@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
   def new; end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user&.authenticate(params[:session][:password])
       if @user.activated?
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         redirect_to root_url
       end
     else
-      flash.now[:danger] = "Invalid email/password combination"
+      flash.now[:danger] = "Invalid email/password combination" # rubocop:disable Rails/I18nLocaleTexts
       render "new", status: :unprocessable_entity
     end
   end

@@ -2,7 +2,7 @@
 
 require "active_support/inflector"
 # Guardのマッチング規則を定義
-guard :minitest, all_on_start: false do
+guard :minitest, all_on_start: false do # rubocop:disable Metrics/BlockLength
   watch(%r{^test/(.*)/?(.*)_test\.rb$})
   watch("test/test_helper.rb") { "test" }
   watch("config/routes.rb") { interface_tests }
