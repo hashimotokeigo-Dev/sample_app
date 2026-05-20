@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account." # rubocop:disable Rails/I18nLocaleTexts
+      flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
       render "new", status: :unprocessable_entity
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "Profile updated" # rubocop:disable Rails/I18nLocaleTexts
+      flash[:success] = "Profile updated"
       redirect_to @user
     else
       render "edit", status: :unprocessable_entity
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted" # rubocop:disable Rails/I18nLocaleTexts
+    flash[:success] = "User deleted"
     redirect_to users_url, status: :see_other
   end
 
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     return if logged_in?
 
     store_location
-    flash[:danger] = "Please log in" # rubocop:disable Rails/I18nLocaleTexts
+    flash[:danger] = "Please log in"
     redirect_to login_url, status: :see_other
   end
 
