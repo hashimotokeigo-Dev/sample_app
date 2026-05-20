@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class PasswordResets < ActionDispatch::IntegrationTest
   def setup
     ActionMailer::Base.deliveries.clear
-    #＠userを定義する
+    # ＠userを定義する
     @user = users(:michael)
   end
 end
@@ -70,7 +72,7 @@ class PasswordUpdateTest < PasswordResetForm
   test "update with invalid password and confirmation" do
     patch password_reset_path(@reset_user.reset_token),
           params: { email: @reset_user.email,
-                    user: { password:              "foobaz",
+                    user: { password: "foobaz",
                             password_confirmation: "barquux" } }
     assert_select "div#error_explanation"
   end
@@ -78,7 +80,7 @@ class PasswordUpdateTest < PasswordResetForm
   test "update with empty password" do
     patch password_reset_path(@reset_user.reset_token),
           params: { email: @reset_user.email,
-                    user: { password:              "",
+                    user: { password: "",
                             password_confirmation: "" } }
     assert_select "div#error_explanation"
   end
@@ -86,7 +88,7 @@ class PasswordUpdateTest < PasswordResetForm
   test "update with valid password and confirmation" do
     patch password_reset_path(@reset_user.reset_token),
           params: { email: @reset_user.email,
-                    user: { password:              "foobarbaz",
+                    user: { password: "foobarbaz",
                             password_confirmation: "foobarbaz" } }
     assert is_logged_in?
     assert_not flash.empty?
@@ -95,9 +97,9 @@ class PasswordUpdateTest < PasswordResetForm
 
   test "reset_digest should be nil after updated password" do
     patch password_reset_path(@reset_user.reset_token),
-      params: { email: @reset_user.email,
-                user: { password:              "foobarbaz",
-                        password_confirmation: "foobarbaz" } }                  
+          params: { email: @reset_user.email,
+                    user: { password: "foobarbaz",
+                            password_confirmation: "foobarbaz" } }
     assert_nil @reset_user.reload.reset_digest
   end
 end
@@ -114,7 +116,7 @@ class ExpiredToken < PasswordResets
     # ユーザーのパスワードの更新を試みる
     patch password_reset_path(@reset_user.reset_token),
           params: { email: @reset_user.email,
-                    user: { password:              "foobarbaz",
+                    user: { password: "foobarbaz",
                             password_confirmation: "foobarbaz" } }
   end
 end
@@ -126,6 +128,6 @@ class ExpiredTokenTest < ExpiredToken
 
   test "should include the word 'expired' on the password-reset page" do
     follow_redirect!
-    assert_match /expired/i, response.body
+    assert_match(/expired/i, response.body)
   end
 end
