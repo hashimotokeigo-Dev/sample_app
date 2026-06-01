@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Following < ActionDispatch::IntegrationTest
@@ -26,6 +28,13 @@ class FollowPagesTest < Following
     assert_match @user.followers.count.to_s, response.body
     @user.followers.each do |user|
       assert_select "a[href=?]", user_path(user)
+    end
+  end
+
+  test "feed on Home page" do
+    get root_path
+    @user.feed.paginate(page: 1).each do |micropost|
+      assert_match CGI.escapeHTML(micropost.content), response.body
     end
   end
 end

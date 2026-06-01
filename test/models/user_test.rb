@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
     assert archer.followers.include?(michael)
     michael.unfollow(archer)
     assert_not michael.following?(archer)
-    #ユーザーは自分自身をフォローできない
+    # ユーザーは自分自身をフォローできない
     michael.follow(michael)
     assert_not michael.following?(michael)
   end
@@ -103,17 +103,21 @@ class UserTest < ActiveSupport::TestCase
     michael = users(:michael)
     archer  = users(:archer)
     lana    = users(:lana)
-    #フォローしているユーザーの投稿を確認
+    # フォローしているユーザーの投稿を確認
     lana.microposts.each do |post_following|
       assert michael.feed.include?(post_following)
     end
-    #フォロワーがいるユーザー自身の投稿を確認
-    michael.microposts.each do |post_self| 
+    # フォロワーがいるユーザー自身の投稿を確認
+    michael.microposts.each do |post_self|
       assert michael.feed.include?(post_self)
+      assert_equal michael.feed.distinct, michael.feed
     end
-    #フォローしていないユーザーの投稿を確認
-    archer.microposts.each do |post_unfollowed|
-      assert_not michael.feed.include?(post_unfollowed)
+
+    # フォロワーがいないユーザー自身の投稿を確認
+    # フォローしていないユーザーの投稿を確認
+    archer.microposts.each do |post_self|
+      assert archer.feed.include?(post_self)
+      assert_not michael.feed.include?(post_self)
     end
   end
 end
